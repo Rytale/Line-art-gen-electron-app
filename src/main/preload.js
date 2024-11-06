@@ -1,12 +1,20 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('electronAPI', {
-    // Image processing functions
-    uploadImage: (file) => ipcRenderer.invoke('upload-image', file),
-    convertToLineArt: (imageData, settings) => ipcRenderer.invoke('convert-to-line-art', imageData, settings),
-    saveImage: (imageData, filePath) => ipcRenderer.invoke('save-image', imageData, filePath),
-    
-    // Settings management
-    getSettings: () => ipcRenderer.invoke('get-settings'),
-    updateSettings: (settings) => ipcRenderer.invoke('update-settings', settings)
-});
+// Expose protected methods that allow the renderer process to use
+// the ipcRenderer without exposing the entire object
+contextBridge.exposeInMainWorld(
+    "electronAPI", {
+        saveImage: (imageData, suggestedName) => 
+            ipcRenderer.invoke('save-image', imageData, suggestedName),
+        onSplashMessage: (callback) => 
+            ipcRenderer.on('splash-message', (event, message) => callback(message)),
+        onUpdateStatus: (callback) =>
+            ipcRenderer.on('update-status', (event, message) => callback(message)),
+        checkForUpdates: () =>
+            ipcRenderer.invoke('check-for-updates'),
+        downloadUpdate: () =>
+            ipcRenderer.invoke('download-update'),
+        skipUpdate: () =>
+            ipcRenderer.invoke('skip-update')
+    }
+);

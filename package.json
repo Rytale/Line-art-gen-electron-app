@@ -1,48 +1,50 @@
 {
   "name": "line-art-gen-electron-app",
   "version": "1.0.0",
-  "description": "An Electron application for converting images to line art",
+  "description": "Transform images into line art",
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron . --no-sandbox",
-    "dev": "electron . --no-sandbox --inspect",
     "build": "electron-builder",
-    "build:win": "electron-builder --win",
-    "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux"
+    "publish": "node scripts/publish.js",
+    "update-server": "node scripts/update-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rytale/Line-art-gen-electron-app"
   },
   "build": {
-    "appId": "com.lineartgen.app",
-    "productName": "Line Art Generator",
-    "directories": {
-      "output": "build"
-    },
-    "files": [
-      "src/**/*",
-      "package.json"
-    ],
+    "appId": "net.rytale.lineartgen",
+    "productName": "Sheets Line Art Generator",
+    "publish": [{
+      "provider": "github",
+      "owner": "rytale",
+      "repo": "line-art-gen-electron-app"
+    }],
     "win": {
-      "target": "nsis",
-      "icon": "src/assets/icon.ico"
+      "target": ["nsis"],
+      "icon": "build/icon.ico"
     },
     "mac": {
-      "target": "dmg",
-      "icon": "src/assets/icon.icns"
+      "target": ["dmg"],
+      "icon": "build/icon.icns"
     },
     "linux": {
-      "target": "AppImage",
-      "icon": "src/assets/icon.png"
+      "target": ["AppImage"],
+      "icon": "build/icon.png"
     }
   },
-  "keywords": [
-    "electron",
-    "line-art",
-    "image-processing"
-  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "electron": "^25.8.4",
-    "electron-builder": "^24.6.4"
+    "electron": "^27.0.4",
+    "electron-builder": "^24.6.4",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "dependencies": {
+    "electron-log": "^5.0.0",
+    "electron-updater": "^6.1.4",
+    "dotenv": "^16.3.1"
   }
 }

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Art Generator</title>
+    <style>
+        :root {
+            --primary-color: #2196f3;
+            --primary-dark: #1976d2;
+            --background-color: transparent;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            -webkit-app-region: drag;
+        }
+
+        .splash-container {
+            text-align: center;
+            position: relative;
+            padding: 40px;
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 360px;
+            margin: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .logo-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-radius: 50%;
+            animation: rotateBorder 2s linear infinite;
+            background: linear-gradient(45deg, var(--primary-color), transparent) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+        }
+
+        .logo-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: linear-gradient(45deg, var(--primary-color), #64b5f6);
+            border-radius: 20%;
+            animation: rotate 4s infinite linear;
+        }
+
+        .app-name {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+            background: linear-gradient(45deg, var(--primary-color), #64b5f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            width: fit-content;
+            margin: 0 auto 10px;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 0.2s;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .loading-progress {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            background: var(--primary-color);
+            animation: moveProgress 1.5s ease-in-out infinite;
+            transform-origin: left center;
+        }
+
+        .status-message {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+            min-height: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 0.4s;
+            transition: all 0.3s ease;
+        }
+
+        .update-notification {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(33, 150, 243, 0.15);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .update-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        .update-notification p {
+            margin-bottom: 15px;
+            color: white;
+            font-size: 0.95em;
+        }
+
+        .update-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .update-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            -webkit-app-region: no-drag;
+        }
+
+        .update-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            background: var(--primary-dark);
+        }
+
+        .update-button.secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .update-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes moveProgress {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(200%);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotateBorder {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-container">
+        <div class="logo">
+            <div class="logo-circle"></div>
+            <div class="logo-inner"></div>
+        </div>
+        <h1 class="app-name">Line Art Generator</h1>
+        <p class="tagline">Transform your images into stunning line art</p>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+        <div class="status-message" id="statusMessage">Initializing...</div>
+        <div class="update-notification" id="updateNotification">
+            <p id="updateMessage"></p>
+            <div class="update-buttons">
+                <button class="update-button" id="updateNow">Update Now</button>
+                <button class="update-button secondary" id="updateLater">Not Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const statusElement = document.getElementById('statusMessage');
+        const updateNotification = document.getElementById('updateNotification');
+        const updateMessage = document.getElementById('updateMessage');
+        const updateNowBtn = document.getElementById('updateNow');
+        const updateLaterBtn = document.getElementById('updateLater');
+
+        // Handle messages from main process
+        window.electronAPI.onSplashMessage((message) => {
+            if (message.includes('version')) {
+                // Show update notification
+                updateMessage.textContent = message;
+                updateNotification.classList.add('show');
+                statusElement.style.opacity = '0';
+            } else {
+                // Show status message
+                statusElement.style.opacity = '0';
+                statusElement.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    statusElement.textContent = message;
+                    statusElement.style.opacity = '1';
+                    statusElement.style.transform = 'translateY(0)';
+                }, 300);
+
+                // Hide update notification if showing regular status
+                if (!message.includes('Downloading')) {
+                    updateNotification.classList.remove('show');
+                }
+            }
+        });
+
+        // Update buttons handlers
+        updateNowBtn.addEventListener('click', () => {
+            window.electronAPI.downloadUpdate();
+            updateMessage.textContent = 'Downloading update...';
+            updateNowBtn.style.display = 'none';
+            updateLaterBtn.style.display = 'none';
+        });
+
+        updateLaterBtn.addEventListener('click', () => {
+            window.electronAPI.skipUpdate();
+            updateNotification.classList.remove('show');
+        });
+
+        // Clean up when window closes
+        window.addEventListener('beforeunload', () => {
+            statusElement.style.opacity = '0';
+        });
+    </script>
+</body>
+</html>

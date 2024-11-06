@@ -15,6 +15,7 @@
                 <button id="downloadBtn" class="button success" disabled>Download</button>
                 <button id="resetBtn" class="button warning" disabled>Reset Settings</button>
             </div>
+            <div class="update-status" id="updateStatus"></div>
             <div class="header-tools">
                 <button id="toggleSidebar" class="button icon-button" title="Toggle Settings">
                     ⚙
@@ -24,7 +25,23 @@
 
         <main class="main-content">
             <div class="preview-container" id="previewContainer">
-                <img id="previewImage" class="preview-image" src="" alt="Preview" style="display: none;">
+                <div class="image-compare">
+                    <div class="image-wrapper original">
+                        <img id="originalImage" class="preview-image" src="" alt="Original" style="display: none;">
+                    </div>
+                    <div class="image-wrapper processed">
+                        <img id="previewImage" class="preview-image" src="" alt="Preview" style="display: none;">
+                    </div>
+                    <div class="comparison-slider" id="comparisonSlider">
+                        <div class="slider-handle">
+                            <div class="slider-line"></div>
+                            <div class="slider-button">
+                                <span class="slider-arrow">◄</span>
+                                <span class="slider-arrow">►</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="dropZone" class="drop-zone">
                     <p>Drag & Drop an image here or click to upload</p>
                 </div>
@@ -140,5 +157,16 @@
     <input type="file" id="fileInput" accept="image/*" style="display: none;">
     
     <script src="home.js"></script>
+    <script>
+        // Handle update status messages
+        window.electronAPI.onUpdateStatus((message) => {
+            const updateStatus = document.getElementById('updateStatus');
+            updateStatus.textContent = message;
+            updateStatus.style.opacity = '1';
+            setTimeout(() => {
+                updateStatus.style.opacity = '0';
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
