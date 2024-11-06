@@ -1,0 +1,48 @@
+{
+  "name": "line-art-gen-electron-app",
+  "version": "1.0.0",
+  "description": "An Electron application for converting images to line art",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron . --no-sandbox",
+    "dev": "electron . --no-sandbox --inspect",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.lineartgen.app",
+    "productName": "Line Art Generator",
+    "directories": {
+      "output": "build"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "src/assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "src/assets/icon.png"
+    }
+  },
+  "keywords": [
+    "electron",
+    "line-art",
+    "image-processing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^25.8.4",
+    "electron-builder": "^24.6.4"
+  }
+}

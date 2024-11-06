@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Art Generator</title>
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <div class="app-layout">
+        <header class="app-header">
+            <div class="header-actions">
+                <button id="uploadBtn" class="button primary">Upload Image</button>
+                <button id="downloadBtn" class="button success" disabled>Download</button>
+                <button id="resetBtn" class="button warning" disabled>Reset Settings</button>
+            </div>
+            <div class="header-tools">
+                <button id="toggleSidebar" class="button icon-button" title="Toggle Settings">
+                    ⚙
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="preview-container" id="previewContainer">
+                <img id="previewImage" class="preview-image" src="" alt="Preview" style="display: none;">
+                <div id="dropZone" class="drop-zone">
+                    <p>Drag & Drop an image here or click to upload</p>
+                </div>
+            </div>
+        </main>
+
+        <aside class="settings-sidebar" id="settingsSidebar">
+            <div class="settings-panel">
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Edge Detection</h3>
+                        <button class="toggle-section">▼</button>
+                    </div>
+                    <div class="section-content">
+                        <div class="input-group">
+                            <label for="detailLevel">Detail Level</label>
+                            <input type="range" id="detailLevel" class="slider"
+                                   min="0" max="1" step="0.01" value="0.65">
+                            <span class="value-display">0.65</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="threshold">Edge Threshold</label>
+                            <input type="range" id="threshold" class="slider"
+                                   min="0" max="255" step="1" value="100">
+                            <span class="value-display">100</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="sensitivity">Edge Sensitivity</label>
+                            <input type="range" id="sensitivity" class="slider"
+                                   min="0.1" max="10" step="0.1" value="3.5">
+                            <span class="value-display">3.5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Line Style</h3>
+                        <button class="toggle-section">▼</button>
+                    </div>
+                    <div class="section-content">
+                        <div class="input-group">
+                            <label for="lineThickness">Line Thickness</label>
+                            <input type="range" id="lineThickness" class="slider"
+                                   min="0.1" max="3" step="0.05" value="1.2">
+                            <span class="value-display">1.2</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="lineSmoothing">Line Smoothing</label>
+                            <input type="range" id="lineSmoothing" class="slider"
+                                   min="0" max="1" step="0.01" value="0.3">
+                            <span class="value-display">0.3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Image Adjustments</h3>
+                        <button class="toggle-section">▼</button>
+                    </div>
+                    <div class="section-content">
+                        <div class="input-group">
+                            <label for="contrast">Contrast</label>
+                            <input type="range" id="contrast" class="slider"
+                                   min="0.5" max="2.5" step="0.05" value="1.2">
+                            <span class="value-display">1.2</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="brightness">Brightness</label>
+                            <input type="range" id="brightness" class="slider"
+                                   min="-50" max="50" step="1" value="10">
+                            <span class="value-display">10</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="denoise">Noise Reduction</label>
+                            <input type="range" id="denoise" class="slider"
+                                   min="0" max="1" step="0.01" value="0.4">
+                            <span class="value-display">0.4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="section-header">
+                        <h3>Advanced Options</h3>
+                        <button class="toggle-section">▼</button>
+                    </div>
+                    <div class="section-content">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="invertColors" class="checkbox">
+                            <label for="invertColors">Invert Colors</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="enhanceDetails" class="checkbox" checked>
+                            <label for="enhanceDetails">Enhance Fine Details</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="preserveShading" class="checkbox">
+                            <label for="preserveShading">Preserve Shading</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    
+    <script src="home.js"></script>
+</body>
+</html>

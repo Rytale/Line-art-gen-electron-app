@@ -1,0 +1,122 @@
+:root {
+    /* Colors */
+    --primary-color: #2196f3;
+    --primary-dark: #1976d2;
+    --primary-light: #bbdefb;
+    --accent-color: #ff4081;
+    --accent-dark: #c51162;
+    --accent-light: #ff80ab;
+    --success-color: #4caf50;
+    --success-dark: #388e3c;
+    --success-light: #a5d6a7;
+    --error-color: #f44336;
+    --error-dark: #d32f2f;
+    --error-light: #ef9a9a;
+    --warning-color: #ff9800;
+    --warning-dark: #f57c00;
+    --warning-light: #ffe0b2;
+    
+    /* Text Colors */
+    --text-primary: #212121;
+    --text-secondary: #757575;
+    --text-disabled: #9e9e9e;
+    --text-hint: #9e9e9e;
+    --text-on-primary: #ffffff;
+    --text-on-accent: #ffffff;
+    
+    /* Background Colors */
+    --background-primary: #ffffff;
+    --background-secondary: #f5f5f5;
+    --background-tertiary: #eeeeee;
+    --background-disabled: #e0e0e0;
+    --divider-color: #e0e0e0;
+    
+    /* Typography */
+    --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-small: 0.875rem;
+    --font-size-medium: 1rem;
+    --font-size-large: 1.25rem;
+    --font-size-xlarge: 1.5rem;
+    --font-size-xxlarge: 2rem;
+    
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+    
+    /* Spacing */
+    --spacing-xxs: 0.125rem;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+    
+    /* Border */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-pill: 9999px;
+    
+    --border-width-thin: 1px;
+    --border-width-normal: 2px;
+    --border-width-thick: 4px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+    
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Z-index */
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1020;
+    --z-index-fixed: 1030;
+    --z-index-modal-backdrop: 1040;
+    --z-index-modal: 1050;
+    --z-index-popover: 1060;
+    --z-index-tooltip: 1070;
+    
+    /* Container */
+    --container-max-width: 1200px;
+    --container-padding: var(--spacing-md);
+    
+    /* Grid */
+    --grid-gap: var(--spacing-md);
+    --grid-columns: 12;
+    
+    /* Component Specific */
+    --header-height: 64px;
+    --sidebar-width: 300px;
+    --footer-height: 48px;
+    
+    /* Focus */
+    --focus-ring-color: var(--primary-color);
+    --focus-ring-offset: 2px;
+    --focus-ring-width: 3px;
+}
+
+/* Dark mode variables - can be enabled with a class or media query */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-primary: #121212;
+        --background-secondary: #1e1e1e;
+        --background-tertiary: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.7);
+        --text-disabled: rgba(255, 255, 255, 0.5);
+        --divider-color: rgba(255, 255, 255, 0.12);
+    }
+}
