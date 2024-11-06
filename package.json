@@ -1,6 +1,6 @@
 {
   "name": "line-art-gen-electron-app",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Transform images into line art",
   "main": "src/main/main.js",
   "scripts": {
@@ -16,22 +16,23 @@
   "build": {
     "appId": "net.rytale.lineartgen",
     "productName": "Sheets Line Art Generator",
-    "publish": [{
+    "publish": {
       "provider": "github",
       "owner": "rytale",
-      "repo": "line-art-gen-electron-app"
-    }],
+      "repo": "line-art-gen-electron-app",
+      "updaterCacheDirName": "line-art-gen-electron-app-updater"
+    },
     "win": {
       "target": ["nsis"],
-      "icon": "build/icon.ico"
+      "icon": "build/logo.png"
     },
     "mac": {
       "target": ["dmg"],
-      "icon": "build/icon.icns"
+      "icon": "build/logo.png"
     },
     "linux": {
       "target": ["AppImage"],
-      "icon": "build/icon.png"
+      "icon": "build/logo.png"
     }
   },
   "author": "",
